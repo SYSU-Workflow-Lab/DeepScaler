@@ -1,0 +1,377 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: productpage
+  namespace: bookinfossj
+  labels:
+    app: productpage
+spec:
+  type: NodePort
+  ports:
+  - port: 9080
+    name: http
+    nodePort: 30012
+  selector:
+    app: productpage
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  namespace: bookinfossj
+  name: productpage
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: productpage
+  name: productpage
+  namespace: bookinfossj
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productpage
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: productpage
+    spec:
+      serviceAccountName: productpage
+      containers:
+      - name: productpage
+        # image: tongjingwan/productpage:v3.0.2
+        image: tongjingwan/productpage:v.tong.1
+        imagePullPolicy: IfNotPresent
+        name: productpage
+        resources: 
+          limits:
+            cpu: "0.6"
+            # cpu: "0.3"
+            # memory: 256Mi
+            memory: 128Mi
+          requests:
+            cpu: "0.5"
+            # cpu: "0.3"
+            # memory: 256Mi
+            memory: 128Mi
+        ports:
+        - containerPort: 9080
+      # - name: istio-proxy
+      #   image: docker.io/istio/proxyv2:1.8.2
+      #   args:
+      #   - proxy
+      #   - sidecar
+      #   - --configPath
+      #   - /etc/istio/proxy
+      #   - --binaryPath
+      #   - /usr/local/bin/envoy
+      #   - --serviceCluster
+      #   resources:
+      #     limits:
+      #       cpu: "0.5"
+      #       memory: 512Mi
+      #     requests:
+      #       cpu: "0.5"
+      #       memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reviews
+  namespace: bookinfossj
+  labels:
+    app: reviews
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: reviews
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: reviews
+  namespace: bookinfossj
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: reviews
+  name: reviews
+  namespace: bookinfossj
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reviews
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: reviews
+    spec:
+      serviceAccountName: reviews
+      containers:
+      - name: reviews
+        # image: tongjingwan/reviews:v.go.3
+        image: tongjingwan/reviews:v.go.4
+        # image: tongjingwan/reviews:v.py.2
+        imagePullPolicy: IfNotPresent
+        resources: 
+          limits:
+            # cpu: "0.03"
+            # memory: 256Mi
+            cpu: "0.1"
+            memory: 128Mi
+          requests:
+            # cpu: "0.03" 
+            # memory: 256Mi  
+            cpu: "0.05"        
+            memory: 128Mi
+            
+        ports:
+        - containerPort: 9080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ratings
+  namespace: bookinfossj
+  labels:
+    app: ratings
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: ratings
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  namespace: bookinfossj
+  name: ratings
+  labels:
+    account: ratings
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ratings
+  name: ratings
+  namespace: bookinfossj
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ratings
+    spec:
+      serviceAccountName: ratings
+      containers:
+      - name: ratings
+        image: tongjingwan/new-ratings:v0.0.4
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: SERVICE_VERSION
+          value: "v2"
+        - name: DB_TYPE
+          value: "mongodb"
+        - name: MONGO_DB_URL
+          value: "mongodb://mongodb:27017/test"
+        resources: 
+          limits:
+            # cpu: "0.1"
+            cpu: "0.1"
+            memory: 128Mi
+          requests:
+            # cpu: "0.1"
+            cpu: "0.05"
+            memory: 128Mi
+        ports:
+        - containerPort: 9080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: details
+  namespace: bookinfossj
+  labels:
+    app: details
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: details
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  namespace: bookinfossj
+  name: details
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: details
+  name: details
+  namespace: bookinfossj
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: details
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: details
+    spec:
+      serviceAccountName: details
+      containers:
+      - name: details
+        image: tongjingwan/details:v1.0.7
+        imagePullPolicy: IfNotPresent
+        name: details
+        resources: 
+          limits:
+            cpu: "0.1"
+            memory: 128Mi
+          requests:
+            # cpu: "0.1"
+            cpu: "0.05"
+            memory: 128Mi
+        ports:
+        - containerPort: 9080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  namespace: bookinfossj
+  labels:
+    app: mongodb
+spec:
+  ports:
+  - port: 27017
+    name: http
+  selector:
+    app: mongodb
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  namespace: bookinfossj
+  name: mongodb
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mongodb
+  name: mongodb
+  namespace: bookinfossj
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: mongodb
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+      creationTimestamp: null
+      labels:
+        app: mongodb
+    spec:
+      serviceAccountName: mongodb
+      containers:
+      - name: mongodb
+        image: tongjingwan/examples-bookinfo-mongodb:v1.15.0
+        imagePullPolicy: IfNotPresent
+        resources: 
+          limits:
+            cpu: "0.5"
+            memory: 512Mi
+          requests:
+            cpu: "0.5"
+            memory: 512Mi
+        ports:
+        - containerPort: 27017
+---
+#apiVersion: networking.istio.io/v1alpha3
+#kind: Gateway
+#metadata:
+#  name: bookinfo-gateway
+#  namespace: bookinfossj 
+#spec:
+#
+#  selector:
+#    istio: ingressgateway # use istio default controller
+#  servers:
+#  - port:
+#      number: 80
+#      name: http
+#      protocol: HTTP
+#    hosts:
+#    - "*"
+#---
+#apiVersion: networking.istio.io/v1alpha3
+#kind: VirtualService
+#metadata:
+#  name: bookinfo
+#  namespace: bookinfossj
+#spec:
+#  hosts:
+#  - "*"
+#  gateways:
+#  - bookinfo-gateway
+#  http:
+#  - match:
+#    - uri:
+#        exact: /productpage
+#    - uri:
+#        prefix: /static
+#    - uri:
+#        exact: /login
+#    - uri:
+#        exact: /logout
+#    - uri:
+#        prefix: /api/v1/products
+#    route:
+#    - destination:
+#        host: productpage
+#        port:
+#          number: 9080
+  # - match:
+  #   - uri:
+  #       exact: /csvc
+  #   rewrite:
+  #     uri: "/"
+  #   route:
+  #   - destination:
+  #       host: csvc
+  #       port:
+  #         number: 9080
