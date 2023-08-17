@@ -193,7 +193,7 @@ If you find this repository useful in your research, please consider citing the 
 ```
 
 ## IX. Contact
-If you have any questions, feel free to contact Shijie Song through Email (<songshj6@mail2.sysu.edu.cn>, <mengchy3@mail2.sysu.edu.cn>) or Github issues. Pull requests are highly welcomed!
+If you have any questions, feel free to contact Shijie Song or Chunyang Meng through Email (<songshj6@mail2.sysu.edu.cn>, <mengchy3@mail2.sysu.edu.cn>) or Github issues. Pull requests are highly welcomed!
 
 
 
