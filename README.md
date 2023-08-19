@@ -2,15 +2,16 @@
 
 ![Static Badge](https://img.shields.io/badge/python-3.6-blue) ![Static Badge](https://img.shields.io/badge/PyTorch-red) 
 - [Overview](#overview)
-- [I. Machine Prerequisite](#i-machine-prerequisite)
+- [I. Machine Prerequis](#i-machine-prerequis)
 - [II. Installation](#ii-installation)
   * [1. Setup Required Packages](#1-setup-required-packages)
-  * [2. Setup Docker](#2-)
-  * [3. Setup Kubernetes Cluster](#2-setup-kubernetes-cluster)
-  * [4. Setup Prometheus](#3-setup-prometheus)
+  * [2. Setup Docker](#2-setup-docker)
+  * [3. Setup Kubernetes Cluster](#3-setup-kubernetes-cluster)
+  * [4. Setup Prometheus](#4-setup-prometheus)
   * [5. Setup Istio](#5-setup-istio)
-  * [6. Setup Locust](#4-setup-locust)
-- [III. Deployment Microservices](#iii-deployment-microservices)
+  * [6. Setup Locust](#6-setup-locust)
+  * [7. Setup Jaeger](#7-setup-jaeger)
+- [III. Deploy Benchmark Microservices](#iii-deploye-benchmark-microservices)
   * [1. Bookinfo](#1-bookinfo)
   * [2. Online-boutique](#2-online-boutique)
   * [3. Train-ticket](#3-train-ticket)
@@ -28,11 +29,10 @@
 - [IX. Contact](#ix-contact)
 
 
-
 ## Overview
 This repository contains a prototyped version of DeepScaler described in our ASE '23 paper "DeepScaler: Holistic Autoscaling for Microservices Based on Spatiotemporal GNN with Adaptive Graph Learning".
 
-## I. Machine Prerequis
+## I. Machine Prerequisite
 
 | **Aspect**                  | **Details**                                                                                                         |
 |-----------------------------|---------------------------------------------------------------------------------------------------------------------|
@@ -66,8 +66,11 @@ Istio is an open-source service mesh platform that enhances the management and s
 ### 6. Setup Locust
 We utilize the [Locust](https://locust.io/) load testing tool, an open-source tool that employs Python code to define user behaviors and simulate millions of users.
 
-
-## III. Deploye Benchmark Microservices
+### 7. Setup Jaeger
+We use Jaeger to initiate scenario A, which involves establishing an invocation relationship among microservices through automated processes.
+ Follow [these steps](https://www.jaegertracing.io/docs/1.14/getting-started/) to get started with Jaeger.
+ 
+## III. Deploy Benchmark Microservices
 ### 1. Bookinfo
 ```
 (1) kubectl create -f <(istioctl kube-inject -f /benchmarks/bookinfo/bookinfo.yaml)
