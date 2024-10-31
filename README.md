@@ -92,9 +92,9 @@ Deploy the Train-Ticket system on K8S with istio.
 
 ## IV. Workload Generation
 
-The generated workload intensity varied over time, emulating typical characteristics of microservice workloads, including slight increases, slight decreases, sharp increases, sharp decreases, and continuous fluctuations. The flow data simulation script is collected from FIFA World Cup access datasets and stored in the [file](https://github.com/SYSU-Workflow-Administrator/DeepScaler/blob/main/sendFlow/random-100max.req).
+The generated workload intensity varied over time, emulating typical characteristics of microservice workloads, including slight increases, slight decreases, sharp increases, sharp decreases, and continuous fluctuations. The flow data simulation script is collected from FIFA World Cup access datasets and stored in the [file](./sendFlow/random-100max.req).
 
-The script [load_generator.py](https://github.com/SYSU-Workflow-Administrator/DeepScaler/blob/main/sendFlow/load_generator.py) is for simulating user behavior for both "Bookinfo" and "Online-Boutique" and [load_generator_train.py](https://github.com/SYSU-Workflow-Administrator/DeepScaler/blob/main/sendFlow/load_generator_train.py) is for simulating user behavior for "Train-Ticket."
+The script [load_generator.py](./sendFlow/load_generator.py) is for simulating user behavior for both "Bookinfo" and "Online-Boutique" and [load_generator_train.py](./sendFlow/load_generator_train.py) is for simulating user behavior for "Train-Ticket."
 
 Simulate the workload generator:
 ``` 
@@ -105,7 +105,7 @@ You can refer to this [webpage](https://blog.techbridge.cc/2019/05/29/how-to-use
 
 ## V. Train and Test
 ### 1. Model Configuration
-The information that needs to be configured before model training is stored in [config/train_config.yaml](https://github.com/SYSU-Workflow-Administrator/DeepScaler/blob/main/config/train_config.yaml), and the processed data sets and various model configuration information are stored in [config/train_datasets_speed.yaml](https://github.com/SYSU-Workflow-Administrator/DeepScaler/blob/main/config/train_datasets_speed.yaml). You can modify the tuning parameters yourself.
+The information that needs to be configured before model training is stored in [config/train_config.yaml](./config/train_config.yaml), and the processed data sets and various model configuration information are stored in [config/train_datasets_speed.yaml](./config/train_dataset_speed.yaml). You can modify the tuning parameters yourself.
 
 ### 2. Collect the original dataset
 ```
@@ -160,7 +160,7 @@ python -u main.py
 | max_graph_num     | Volume of adjacency matrix set |
 
 More parameter information please refer to main.py.
-The models exported after running the file are stored in the [model_states](https://github.com/SYSU-Workflow-Administrator/DeepScaler/tree/main/model_states).
+The models exported after running the file are stored in the [model_states](./model_states).
 
 ## VI. Autoscaling
 
@@ -187,12 +187,14 @@ python calculate.py
 If you find this repository useful in your research, please consider citing the following papers:
 
 ```
-@INPROCEEDINGS{1234567,
+@INPROCEEDINGS{10298341,
   author={Meng, Chunyang and Song, Shijie and Tong, Haogang and Pan, Maolin and Yu, Yang},
   booktitle={2023 38th IEEE/ACM International Conference on Automated Software Engineering (ASE)}, 
-  title={DeepScaler: Holistic Autoscaling for Microservices Based on Spatiotemporal GNN with Adaptive Graph Learnin}, 
-  year={2023}
-}
+  title={DeepScaler: Holistic Autoscaling for Microservices Based on Spatiotemporal GNN with Adaptive Graph Learning}, 
+  year={2023},
+  pages={53-65},
+  keywords={Learning systems;Cloud computing;Costs;Fluctuations;Microservice architectures;Feature extraction;Dynamic scheduling;Cloud Computing;Microservice;QoS;Resource Management;Holistic Autoscaling;Graph Convolution;Container},
+  doi={10.1109/ASE56229.2023.00038}}
 ```
 
 ## IX. Contact
